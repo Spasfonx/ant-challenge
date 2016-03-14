@@ -6,6 +6,8 @@ public class Tile implements Comparable<Tile> {
     
     private final int col;
     
+    private int cout;
+    
     /**
      * Creates new {@link Tile} object.
      * 
@@ -35,7 +37,15 @@ public class Tile implements Comparable<Tile> {
         return col;
     }
     
-    /** 
+    public int getCout() {
+		return cout;
+	}
+
+	public void setCout(int cout) {
+		this.cout = cout;
+	}
+
+	/** 
      * {@inheritDoc}
      */
     @Override
