@@ -373,6 +373,16 @@ public class Ants {
         }
         return directions;
     }
+    
+    public List<Aim> getDirectionsAStar(Tile t1, Tile t2) {
+    	List<Tile> path = new AStar().getPath(this, t1, t2);
+    	
+    	if (path != null && path.size() > 1) {
+    		return this.getDirections(path.get(0), path.get(1));    		
+    	} else {
+    		return this.getDirections(t1, t2);
+    	}
+    }
 
     /**
      * Clears game state information about my ants locations.
@@ -500,4 +510,6 @@ public class Ants {
         orders.add(order);
         System.out.println(order);
     }
+    
+    
 }
