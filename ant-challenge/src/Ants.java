@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +47,7 @@ public class Ants {
     private final Set<Tile> foodTiles = new HashSet<Tile>();
 
     private final Set<Order> orders = new HashSet<Order>();
-
+    
     /**
      * Creates new {@link Ants} object.
      * 
@@ -374,6 +375,14 @@ public class Ants {
         return directions;
     }
     
+    /**
+     * Returns one or two orthogonal directions from one location to the another using A* algorithm.
+     * 
+     * @param t1 one location on the game map
+     * @param t2 another location on the game map
+     * 
+     * @return orthogonal directions from <code>t1</code> to <code>t2</code>
+     */
     public List<Aim> getDirectionsAStar(Tile t1, Tile t2) {
     	List<Tile> path = new AStar().getPath(this, t1, t2);
     	

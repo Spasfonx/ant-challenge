@@ -6,7 +6,7 @@ public class Tile implements Comparable<Tile> {
     
     private final int col;
     
-    private int cout;
+    private int cout = Integer.MAX_VALUE;
     
     /**
      * Creates new {@link Tile} object.
@@ -79,6 +79,6 @@ public class Tile implements Comparable<Tile> {
      */
     @Override
     public String toString() {
-        return row + " " + col;
+        return row + " " + col + " [" + cout + "]";
     }
 }

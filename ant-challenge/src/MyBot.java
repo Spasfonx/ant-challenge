@@ -104,16 +104,6 @@ public class MyBot extends Bot {
         	}
         }
         
-        // finding close food
-        Collections.sort(foodRoutes);
-        for (Route route : foodRoutes) {
-        	if (!foodTargets.containsKey(route.getEnd())
-        			&& !foodTargets.containsValue(route.getStart())
-        			&& doMoveLocation(route.getStart(), route.getEnd())) {
-        		foodTargets.put(route.getEnd(), route.getStart());
-        	}
-        }
-        
         // exploring the map
         for (Tile antLoc : sortedAnts) {
         	if (!orders.containsValue(antLoc)) {
@@ -130,6 +120,16 @@ public class MyBot extends Bot {
         				break;
         			}
         		}
+        	}
+        }
+        
+        // finding close food
+        Collections.sort(foodRoutes);
+        for (Route route : foodRoutes) {
+        	if (!foodTargets.containsKey(route.getEnd())
+        			&& !foodTargets.containsValue(route.getStart())
+        			&& doMoveLocation(route.getStart(), route.getEnd())) {
+        		foodTargets.put(route.getEnd(), route.getStart());
         	}
         }
         

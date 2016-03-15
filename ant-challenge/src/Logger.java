@@ -7,11 +7,12 @@ import java.util.List;
 public class Logger {
 	
 	private static FileWriter writer = null;
+	private final static boolean isEnabled = true;
 	
 	private static FileWriter getWriter() {
 		try {
 			if (writer == null) {
-				writer = new FileWriter(new File("log.txt"), true);
+				writer = new FileWriter(new File("log.txt"), false);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -20,11 +21,13 @@ public class Logger {
 		return writer;
 	}
 	
-	public static void writeLog(String message) {		
-		try {
-			getWriter().write(message + "\n");			
-		} catch (IOException e) {
-			e.printStackTrace();
+	public static void writeLog(String message) {
+		if (isEnabled) {
+			try {
+				getWriter().write(message + "\n");			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
