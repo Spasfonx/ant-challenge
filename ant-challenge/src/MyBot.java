@@ -104,25 +104,6 @@ public class MyBot extends Bot {
         	}
         }
         
-        // exploring the map
-        for (Tile antLoc : sortedAnts) {
-        	if (!orders.containsValue(antLoc)) {
-        		List<Route> unseenRoutes = new ArrayList<Route>();
-        		for (Tile unseenLoc : unseenTiles) {
-        			int distance = ants.getDistance(antLoc, unseenLoc);
-        			Route route = new Route(antLoc, unseenLoc, distance);
-        			unseenRoutes.add(route);
-        		}
-        		
-        		Collections.sort(unseenRoutes);
-        		for (Route route : unseenRoutes) {
-        			if (doMoveLocation(route.getStart(), route.getEnd())) {
-        				break;
-        			}
-        		}
-        	}
-        }
-        
         // finding close food
         Collections.sort(foodRoutes);
         for (Route route : foodRoutes) {
@@ -155,6 +136,25 @@ public class MyBot extends Bot {
         Collections.sort(hillRoutes);
         for (Route route : hillRoutes) {
         	doMoveLocation(route.getStart(), route.getEnd());
+        }
+        
+        // exploring the map
+        for (Tile antLoc : sortedAnts) {
+        	if (!orders.containsValue(antLoc)) {
+        		List<Route> unseenRoutes = new ArrayList<Route>();
+        		for (Tile unseenLoc : unseenTiles) {
+        			int distance = ants.getDistance(antLoc, unseenLoc);
+        			Route route = new Route(antLoc, unseenLoc, distance);
+        			unseenRoutes.add(route);
+        		}
+        		
+        		Collections.sort(unseenRoutes);
+        		for (Route route : unseenRoutes) {
+        			if (doMoveLocation(route.getStart(), route.getEnd())) {
+        				break;
+        			}
+        		}
+        	}
         }
         
         // unblocking our own hills

@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -47,6 +49,8 @@ public class Ants {
     private final Set<Tile> foodTiles = new HashSet<Tile>();
 
     private final Set<Order> orders = new HashSet<Order>();
+    
+    private final Map<Tile, List<Tile>> missions = new HashMap<Tile, List<Tile>>();
     
     /**
      * Creates new {@link Ants} object.
@@ -384,10 +388,27 @@ public class Ants {
      * @return orthogonal directions from <code>t1</code> to <code>t2</code>
      */
     public List<Aim> getDirectionsAStar(Tile t1, Tile t2) {
-    	List<Tile> path = new AStar().getPath(this, t1, t2);
+    	if (!missions.containsKey(t2)) {
+    		//List<Tile> path = new AStar().getPath(this, t1, t2);
+    		Logger.writeLog("Initialisation de Chemin de " + t1 + " à " + t2);
+    		missions.put(t2, new AStar().getPath(this, t1, t2));
+    	}
+    	
+    	Logger.writeLog("Chemin de " + t1 + " à " + t2);
+    	List<Tile> path = missions.get(t2);
+    	Logger.writeLog("Contenu de la map de : " + t2);
+    	Logger.writeLog(path);
+    	Logger.writeLog("\n\n");
     	
     	if (path != null && path.size() > 1 && getDistance(t1, t2) < 10)  {
-    		return this.getDirections(path.get(0), path.get(1));    		
+    		int indexOfT1 = path.indexOf(t1);
+    		List<Aim> directions = this.getDirections(path.get(indexOfT1), path.get(indexOfT1 + 1));
+    		
+    		if (path.get(indexOfT1 + 1).equals(t2)) {
+    			missions.remove(t2);
+    		}
+    		
+    		return directions;
     	} else {
     		return this.getDirections(t1, t2);
     	}

@@ -9,7 +9,6 @@ public class AStar {
     private LinkedList<Tile> closedList= new LinkedList<Tile>();
 	
 	public List<Tile> getPath(Ants ants, Tile start, Tile end) {
-		Logger.writeLog("\n\n" + start + " ; " + end);
     	/* Initialisation */
     	Tile current = start;
     	
@@ -19,18 +18,13 @@ public class AStar {
     	ajouterListeFermee(current);
         ajouterCasesAdjacentes(ants, current, end);
         
-        Logger.writeLog("ENTREE DANS LA BOUCLE WHILE ! ");
-        
         while (!current.equals(end) && !opensList.isEmpty()) {
         	current = meilleurNoeud(opensList, end);
         	
         	ajouterListeFermee(current);
         	ajouterCasesAdjacentes(ants, current, end);
         }
-        
-        Logger.writeLog("END : ");
-        Logger.writeLog(closedList);
-        
+                
         if (current.equals(end)) {
         	return closedList;
         }
@@ -82,7 +76,8 @@ public class AStar {
     	Tile n = opensList.get(opensList.indexOf(tile));
     	
     	closedList.add(n);
-    	opensList.remove(tile);
+    	//opensList.remove(tile);
+    	opensList.clear();
     	
     }
     
