@@ -386,7 +386,7 @@ public class Ants {
     public List<Aim> getDirectionsAStar(Tile t1, Tile t2) {
     	List<Tile> path = new AStar().getPath(this, t1, t2);
     	
-    	if (path != null && path.size() > 1) {
+    	if (path != null && path.size() > 1 && getDistance(t1, t2) < 10)  {
     		return this.getDirections(path.get(0), path.get(1));    		
     	} else {
     		return this.getDirections(t1, t2);
