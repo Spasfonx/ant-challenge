@@ -394,11 +394,14 @@ public class Ants {
     		missions.put(t2, new AStar().getPath(this, t1, t2));
     	}
     	
-    	Logger.writeLog("Chemin de " + t1 + " à " + t2);
     	List<Tile> path = missions.get(t2);
-    	Logger.writeLog("Contenu de la map de : " + t2);
-    	Logger.writeLog(path);
-    	Logger.writeLog("\n\n");
+    	
+    	if (this.getTurns() < 100) {
+			Logger.writeLog("Chemin de " + t1 + " à " + t2);
+			Logger.writeLog("Contenu de la map");
+			Logger.writeLog(missions.toString());
+			Logger.writeLog("\n\n");
+    	}
     	
     	if (path != null && path.size() > 1 && getDistance(t1, t2) < 10)  {
     		int indexOfT1 = path.indexOf(t1);
