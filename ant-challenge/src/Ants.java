@@ -52,6 +52,8 @@ public class Ants {
     
     private final Map<Tile, List<Tile>> missions = new HashMap<Tile, List<Tile>>();
     
+    private final Set<Tile> missionsEnCours = new HashSet<Tile>();
+    
     /**
      * Creates new {@link Ants} object.
      * 
@@ -394,32 +396,25 @@ public class Ants {
     		missions.put(t2, new AStar().getPath(this, t1, t2));
     	}
     	
-    	Logger.writeLog(t1 + "; " + t2);
-    	
     	List<Tile> path = missions.get(t2);
     	
-    	Logger.writeLog("PATH : ");
-    	if (path != null) {
-    		Logger.writeLog(path);
-    	}
-    	
-    	if (path != null && path.size() > 1) {
+    	if (path != null && path.size() > 1 && !missionsEnCours.contains(t2)) {
     		int indexOfT1 = path.indexOf(t1);
     		List<Aim> directions = null;
     		
     		if (indexOfT1 > -1) {
     			directions = this.getDirections(path.get(indexOfT1), path.get(indexOfT1 + 1));
+    			missionsEnCours.add(t2);
+    			
+    			if (path.get(indexOfT1 + 1).equals(t2)) {
+        			missions.remove(t2);
+        		}
     		} else {
-    			Logger.writeLog("CHANGEMENT T2");
-    			missions.put(t2, new AStar().getPath(this, t1, t2));
-    			directions = this.getDirections(path.get(0), path.get(1));
+//    			Logger.writeLog("CHANGEMENT T2");
+//    			missions.put(t2, new AStar().getPath(this, t1, t2));
+//    			directions = this.getDirections(path.get(0), path.get(1));
+    			directions = this.getDirections(t1, t2);
     		}
-    		
-    		if (path.get(indexOfT1 + 1).equals(t2)) {
-    			missions.remove(t2);
-    		}
-    		
-    		Logger.writeLog("\n");
     		
     		return directions;
     	} else {
@@ -427,6 +422,10 @@ public class Ants {
     	}
     }
 
+    public void clearMissionsEnCours() {
+    	missionsEnCours.clear();
+    }
+    
     /**
      * Clears game state information about my ants locations.
      */

@@ -69,6 +69,7 @@ public class MyBot extends Bot {
     public void doTurn() {
         Ants ants = getAnts();
         orders.clear();
+        ants.clearMissionsEnCours();
         Map<Tile, Tile> foodTargets = new HashMap<Tile, Tile>();
         
         // add all locations to unseen tiles set, run once

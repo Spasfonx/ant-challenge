@@ -7,7 +7,7 @@ import java.util.List;
 public class Logger {
 	
 	private static FileWriter writer = null;
-	private final static boolean isEnabled = true;
+	private final static boolean isEnabled = false;
 	
 	private static FileWriter getWriter() {
 		try {
