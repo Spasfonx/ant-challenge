@@ -394,22 +394,32 @@ public class Ants {
     		missions.put(t2, new AStar().getPath(this, t1, t2));
     	}
     	
+    	Logger.writeLog(t1 + "; " + t2);
+    	
     	List<Tile> path = missions.get(t2);
     	
-    	if (this.getTurns() < 100) {
-			Logger.writeLog("Chemin de " + t1 + " à " + t2);
-			Logger.writeLog("Contenu de la map");
-			Logger.writeLog(missions.toString());
-			Logger.writeLog("\n\n");
+    	Logger.writeLog("PATH : ");
+    	if (path != null) {
+    		Logger.writeLog(path);
     	}
     	
-    	if (path != null && path.size() > 1 && getDistance(t1, t2) < 10)  {
+    	if (path != null && path.size() > 1) {
     		int indexOfT1 = path.indexOf(t1);
-    		List<Aim> directions = this.getDirections(path.get(indexOfT1), path.get(indexOfT1 + 1));
+    		List<Aim> directions = null;
+    		
+    		if (indexOfT1 > -1) {
+    			directions = this.getDirections(path.get(indexOfT1), path.get(indexOfT1 + 1));
+    		} else {
+    			Logger.writeLog("CHANGEMENT T2");
+    			missions.put(t2, new AStar().getPath(this, t1, t2));
+    			directions = this.getDirections(path.get(0), path.get(1));
+    		}
     		
     		if (path.get(indexOfT1 + 1).equals(t2)) {
     			missions.remove(t2);
     		}
+    		
+    		Logger.writeLog("\n");
     		
     		return directions;
     	} else {

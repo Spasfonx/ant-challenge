@@ -50,6 +50,7 @@ public class MyBot extends Bot {
     	Ants ants = getAnts();
     	
     	// Tracks targets to prevent 2 ants to the same Location
+    	Logger.writeLog("doMoveLocation demandée : " + antLoc + " " + destLoc);
     	List<Aim> directions = ants.getDirectionsAStar(antLoc, destLoc);
     	for (Aim direction : directions) {
     		if (doMoveDirection(antLoc, direction)) {

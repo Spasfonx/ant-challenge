@@ -9,6 +9,8 @@ public class AStar {
     private LinkedList<Tile> closedList= new LinkedList<Tile>();
 	
 	public List<Tile> getPath(Ants ants, Tile start, Tile end) {
+		Logger.writeLog(start + "; " + end);
+		
     	/* Initialisation */
     	Tile current = start;
     	
@@ -18,12 +20,18 @@ public class AStar {
     	ajouterListeFermee(current);
         ajouterCasesAdjacentes(ants, current, end);
         
+        Logger.writeLog("DANS LA BOUCLE WHILE");
+        
         while (!current.equals(end) && !opensList.isEmpty()) {
         	current = meilleurNoeud(opensList, end);
         	
         	ajouterListeFermee(current);
         	ajouterCasesAdjacentes(ants, current, end);
         }
+        
+        Logger.writeLog("END : ");
+        Logger.writeLog(closedList);
+        Logger.writeLog("\n");
                 
         if (current.equals(end)) {
         	return closedList;
@@ -75,8 +83,8 @@ public class AStar {
     private void ajouterListeFermee(Tile tile) {
     	Tile n = opensList.get(opensList.indexOf(tile));
     	
-    	closedList.add(n);
     	//opensList.remove(tile);
+    	closedList.add(n);
     	opensList.clear();
     	
     }
@@ -95,16 +103,16 @@ public class AStar {
     	Tile tileEst = ants.getTile(tile, Aim.EAST);
     	Tile tileOuest = ants.getTile(tile, Aim.WEST);
     	
-    	if (ants.getIlk(tileNorth).isNotThrowable()) {
+    	if (!ants.getIlk(tileNorth).isNotThrowable()) {
     		neighbours.add(tileNorth);
     	}
-    	if (ants.getIlk(tileSud).isNotThrowable()) {
+    	if (!ants.getIlk(tileSud).isNotThrowable()) {
     		neighbours.add(tileSud);
     	}
-    	if (ants.getIlk(tileEst).isNotThrowable()) {
+    	if (!ants.getIlk(tileEst).isNotThrowable()) {
     		neighbours.add(tileEst);
     	}
-    	if (ants.getIlk(tileOuest).isNotThrowable()) {
+    	if (!ants.getIlk(tileOuest).isNotThrowable()) {
     		neighbours.add(tileOuest);
     	}
     	

@@ -24,7 +24,8 @@ public class Logger {
 	public static void writeLog(String message) {
 		if (isEnabled) {
 			try {
-				getWriter().write(message + "\n");			
+				getWriter().write(message + "\n");
+				getWriter().flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
